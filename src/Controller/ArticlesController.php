@@ -83,4 +83,36 @@ class ArticlesController extends AppController
         }
     }
 
+    public function tags()
+    {
+       // 'pass' キーは CakePHP によって提供され、リクエストに渡された
+        // 全ての URL パスセグメントを含みます。
+        $tags = $this->request->getParam('pass');
+
+        // ArticlesTable を使用してタグ付きの記事を検索します。
+        $articles = $this->Articles->find('tagged', [
+            'tags' => $tags
+        ]);
+
+        // 変数をビューテンプレートのコンテキストに渡します。
+        $this->set([
+            'articles' => $articles,
+            'tags' => $tags
+        ]);
+    }
+
+    public function tags(...$tags)
+    {
+        // ArticlesTable を使用してタグ付きの記事を検索します。
+        $articles = $this->Articles->find('tagged', [
+            'tags' => $tags
+        ]);
+
+        // 変数をビューテンプレートのコンテキストに渡します。
+        $this->set([
+            'articles' => $articles,
+            'tags' => $tags
+        ]);
+    }
+
 }
